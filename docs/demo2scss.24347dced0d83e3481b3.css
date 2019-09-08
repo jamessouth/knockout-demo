@@ -1,0 +1,1 @@
+*{margin:0;padding:0;box-sizing:border-box}.border{min-height:100vh;width:100%;background-color:#efefef;display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr))}.border div{width:200px;height:200px;background-color:coral;margin:1em auto;text-align:center;font-size:3em;--lines:343;border-image:82/42px/14;border-style:solid}

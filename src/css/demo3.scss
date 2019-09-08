@@ -1,0 +1,51 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.shape{
+  min-height: 100vh;
+  background: conic-gradient(#100810 2deg, #f1250f 2deg 15deg, #1a1415 15deg 16deg, #16238b 16deg 19deg, #0f070f 19deg 20deg, #eb280d 20deg 23deg, #200e14 23deg 24deg, #2a2fa1 24deg 29deg, #140413 29deg 30deg, #e8250e 30deg 39deg, #1d101b 39deg 40deg, #2b3086 40deg 43deg, #111214 43deg 44deg, #ce1f16 44deg 66deg, #1d101b 66deg 67deg, #232875 67deg 70deg, #1d101b 70deg 71deg, #de2f1c 71deg 116deg, #111214 116deg 119deg, #3c5298 119deg 121deg, #14101a 121deg 123deg, #ed341c 123deg 133deg, #1d101b 133deg 134deg, #3a4dab 134deg 143deg, #111214 143deg 144deg, #f23314 144deg 157deg, #171119 157deg 160deg, #22348c 160deg 168deg, #171619 168deg 169deg, #f73016 169deg 188deg, #1c1c1b 188deg 191deg, #1f3c8a 191deg 195deg, #2d252f 195deg 196deg, #e32d10 196deg 216deg, #111214 216deg 217deg, #304796 217deg 220deg, #171619 220deg 222deg, #df2a11 222deg 266deg, #14101a 266deg 267deg, #35498e 267deg 271deg, #14101a 271deg 272deg, #ed311d 272deg 295deg, #1c1c1b 295deg 298deg, #332b92 298deg 303deg, #171619 303deg 304deg, #e62a11 304deg 326deg, #2d252f 326deg 328deg, #28329c 328deg 338deg, #2d252f 338deg 339deg, #ef2b20 339deg 357deg, #111214 357deg 358deg, #282e98 358deg);
+}
+.shape div{
+  transform: translateX(-50%) translateY(-50%);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 440px;
+  height: 500px;
+}
+#expt{
+  background-color: #191418;
+  z-index: 31;
+}
+#pop{
+  z-index: 25;
+}
+#blue{
+  background-color: #f5f9fc;
+  background-image: radial-gradient(#1b4282 30%, #122182 32%, #1a237e12 33%), radial-gradient(#1b4282 30%, #14248e 32%, #1a237e08 33%);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+#outline{
+  background-color: #282a2c;
+}
+p{
+  position: absolute;
+  top: 166px;
+  left: 46%;
+  font-family: 'Boogaloo', cursive;
+  text-shadow: 4px 4px 0 #232325, -4px 4px 0 #232325, -4px -4px 0 #232325, 7px 10px 0 #232325;
+  font-size: 140px;
+  color: #f52e14;
+  letter-spacing: -10px;
+  transform: translateX(-50%) rotateZ(-10deg) skew(-5deg, -3deg);
+}
+span{
+  position: relative;
+  display: inline-block;
+}
+span:first-of-type{
+  z-index: 55;
+}

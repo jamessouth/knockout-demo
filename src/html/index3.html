@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Boogaloo&display=swap&text=PO" rel="stylesheet">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="css paint api demo 3">
+  </head>
+  <body class="shape">
+    <div id="pop">
+      <p><span>P</span><span>O</span>P</p>
+    </div>
+    <div id="expt"></div>
+    <div id="blue"></div>
+    <div id="outline"></div>
+  </body>
+  <style>
+    #expt{
+      -webkit-mask-image: paint(demo3b);
+      mask-image: paint(demo3b);
+    }
+    #pop{
+      background-image: paint(demo3a);
+    }
+    #blue{
+      -webkit-mask-image: paint(demo3c);
+      mask-image: paint(demo3c);
+    }
+    #outline{
+      -webkit-mask-image: paint(demo3d);
+      mask-image: paint(demo3d);
+    }
+  </style>
+</html>

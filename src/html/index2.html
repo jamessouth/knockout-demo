@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="css paint api demo 2">
+  </head>
+  <body class="border">
+    <div>a</div>
+    <div>b</div>
+    <div>c</div>
+    <div>d</div>
+  </body>
+  <style>
+    .border div{
+      border-image-source: linear-gradient(blue, blue);
+      border-image-source: paint(demo2);
+    }
+  </style>
+</html>

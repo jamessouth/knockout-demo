@@ -1,0 +1,58 @@
+{
+  "name": "paint-demo",
+  "version": "1.0.0",
+  "description": "css paint demo",
+  "private": "true",
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead",
+    "not ie < 12"
+  ],
+  "scripts": {
+    "lint": "eslint ./src/js",
+    "dev": "webpack-dev-server",
+    "build": "webpack",
+    "prebuild": "rm -f docs/demo1.min.js docs/demo2.min.js docs/demo3a.min.js docs/demo3b.min.js docs/demo3c.min.js docs/demo3d.min.js && npx minify src/js/demo1.js --out-file docs/demo1.min.js && npx minify src/js/demo2.js --out-file docs/demo2.min.js && npx minify src/js/demo3a.js --out-file docs/demo3a.min.js && npx minify src/js/demo3b.js --out-file docs/demo3b.min.js && npx minify src/js/demo3c.js --out-file docs/demo3c.min.js && npx minify src/js/demo3d.js --out-file docs/demo3d.min.js && npx minify src/js/demo4.js --out-file docs/demo4.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamessouth/portfolio.git"
+  },
+  "author": "james south",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamessouth/portfolio/issues"
+  },
+  "homepage": "https://github.com/jamessouth/portfolio#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "babel-minify": "^0.5.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^4.0.0-beta.8",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "sass-loader": "^7.3.1",
+    "script-ext-html-webpack-plugin": "^2.1.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "core-js": "^3.2.1",
+    "css-paint-polyfill": "^1.0.3"
+  }
+}
