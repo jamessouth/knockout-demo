@@ -1,0 +1,32 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  display: flex;
+  background: #fbfbfb;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+div:first-of-type{
+  --stars: 522;
+  background-image: linear-gradient(black, black);
+  background-image: paint(demo1);
+  // background-position: 50%;
+  // background-repeat: no-repeat;
+  &:before{
+    display: block;
+    // font-family: 'uppereastsideregular';
+    font-size: 43px;
+    letter-spacing: 2px;
+    text-align: center;
+    content: "15 Puzzle Generator";
+    background: #fbfbfb;
+    line-height: 52px;
+    color: #000;
+    mix-blend-mode: lighten;
+    // margin-bottom: 1.5em;
+  }
+}

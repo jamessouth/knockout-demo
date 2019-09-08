@@ -1,7 +1,7 @@
 {
-  "name": "paint-demo",
+  "name": "knockout-demo",
   "version": "1.0.0",
-  "description": "css paint demo",
+  "description": "knockout text using css paint demo",
   "private": "true",
   "browserslist": [
     "last 2 versions",
@@ -13,18 +13,18 @@
     "lint": "eslint ./src/js",
     "dev": "webpack-dev-server",
     "build": "webpack",
-    "prebuild": "rm -f docs/demo1.min.js docs/demo2.min.js docs/demo3a.min.js docs/demo3b.min.js docs/demo3c.min.js docs/demo3d.min.js && npx minify src/js/demo1.js --out-file docs/demo1.min.js && npx minify src/js/demo2.js --out-file docs/demo2.min.js && npx minify src/js/demo3a.js --out-file docs/demo3a.min.js && npx minify src/js/demo3b.js --out-file docs/demo3b.min.js && npx minify src/js/demo3c.js --out-file docs/demo3c.min.js && npx minify src/js/demo3d.js --out-file docs/demo3d.min.js && npx minify src/js/demo4.js --out-file docs/demo4.min.js"
+    "prebuild": "rm -f docs/demo1.min.js docs/demo2.min.js docs/demo3.min.js docs/demo4.min.js && npx minify src/js/demo1.js --out-file docs/demo1.min.js && npx minify src/js/demo2.js --out-file docs/demo2.min.js && npx minify src/js/demo3.js --out-file docs/demo3.min.js && npx minify src/js/demo4.js --out-file docs/demo4.min.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamessouth/portfolio.git"
+    "url": "git+https://github.com/jamessouth/knockout-demo.git"
   },
   "author": "james south",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jamessouth/portfolio/issues"
+    "url": "https://github.com/jamessouth/knockout-demo/issues"
   },
-  "homepage": "https://github.com/jamessouth/portfolio#readme",
+  "homepage": "https://github.com/jamessouth/knockout-demo#readme",
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",

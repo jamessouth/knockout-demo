@@ -8,10 +8,10 @@ const ScriptExtHTMLWebpackPlugin = require('script-ext-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
-  // mode: 'development',
-  // devtool: 'inline-source-map',
+  // mode: 'production',
+  // devtool: 'source-map',
+  mode: 'development',
+  devtool: 'inline-source-map',
   entry: {
     demo1: './src/js/index.js',
   },
@@ -72,10 +72,7 @@ module.exports = {
       '**/*',
       '!demo1.min.js',
       '!demo2.min.js',
-      '!demo3a.min.js',
-      '!demo3b.min.js',
-      '!demo3c.min.js',
-      '!demo3d.min.js',
+      '!demo3.min.js',
       '!demo4.min.js',
     ] }),
     new MiniCssExtractPlugin({
@@ -83,24 +80,9 @@ module.exports = {
       chunkFilename: '[name].[contenthash].css',
     }),
     new HTMLWebpackPlugin({
-      template: './src/html/index1.html',
-      title: 'CSS Paint Demo 1',
-      filename: 'demo1.html',
-    }),
-    new HTMLWebpackPlugin({
-      template: './src/html/index2.html',
-      title: 'CSS Paint Demo 2',
-      filename: 'demo2.html',
-    }),
-    new HTMLWebpackPlugin({
-      template: './src/html/index3.html',
-      title: 'CSS Paint Demo 3',
-      filename: 'demo3.html',
-    }),
-    new HTMLWebpackPlugin({
-      template: './src/html/index4.html',
-      title: 'CSS Paint Demo 4',
-      filename: 'demo4.html',
+      template: './src/html/index.html',
+      title: 'Knockout Text Demo',
+      filename: 'index.html',
     }),
     new ScriptExtHTMLWebpackPlugin({
       defaultAttribute: 'async',
