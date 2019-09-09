@@ -12,13 +12,14 @@ body{
   height: 100vh;
 }
 div:first-of-type{
-  --brushstrokes: 102;
-  width: 66%;
+  --brushstrokes: 3625;
+  width: 450px;
   background-image: linear-gradient(black, black);
   background-image: paint(demo1);
   // background-position: 50%;
   // background-repeat: no-repeat;
   &:before{
+    // https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
     display: block;
     // font-family: 'Permanent Marker', cursive;
     // font-family: 'Beth Ellen', cursive;
@@ -31,37 +32,37 @@ div:first-of-type{
     // letter-spacing: 2px;
     text-align: center;
     content: "Claude Monet";
-    background: #fbfbfb;
+    // background: #fbfbfb;
     line-height: 96px;
-    color: #000;
+    color: #1e0a00;
     mix-blend-mode: lighten;
     // margin-bottom: 1.5em;
   }
 }
-div:nth-of-type(2){
-  --brushstrokes: 102;
-  width: 66%;
-  background-image: linear-gradient(black, black);
-  background-image: paint(demo2);
-  // background-position: 50%;
-  // background-repeat: no-repeat;
-  &:before{
-    display: block;
-    // font-family: 'Permanent Marker', cursive;
-    // font-family: 'Beth Ellen', cursive;
-    // font-family: 'La Belle Aurore', cursive;
-    // font-family: 'Meddon', cursive;
-    // font-family: 'Sarina', cursive;
-    font-family: 'Dr Sugiyama', cursive;
-    // font-family: 'uppereastsideregular';
-    font-size: 88px;
-    // letter-spacing: 2px;
-    text-align: center;
-    content: "Alphons Mucha";
-    background: #fbfbfb;
-    line-height: 96px;
-    color: #000;
-    mix-blend-mode: lighten;
-    // margin-bottom: 1.5em;
-  }
-}
+// div:nth-of-type(2){
+//   --brushstrokes: 102;
+//   width: 66%;
+//   background-image: linear-gradient(black, black);
+//   background-image: paint(demo2);
+//   // background-position: 50%;
+//   // background-repeat: no-repeat;
+//   &:before{
+//     display: block;
+//     // font-family: 'Permanent Marker', cursive;
+//     // font-family: 'Beth Ellen', cursive;
+//     // font-family: 'La Belle Aurore', cursive;
+//     // font-family: 'Meddon', cursive;
+//     // font-family: 'Sarina', cursive;
+//     font-family: 'Dr Sugiyama', cursive;
+//     // font-family: 'uppereastsideregular';
+//     font-size: 88px;
+//     // letter-spacing: 2px;
+//     text-align: center;
+//     content: "Alphons Mucha";
+//     background: #fbfbfb;
+//     line-height: 96px;
+//     color: #000;
+//     mix-blend-mode: lighten;
+//     // margin-bottom: 1.5em;
+//   }
+// }
