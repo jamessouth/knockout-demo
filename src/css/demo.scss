@@ -9,11 +9,10 @@ body{
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 }
 div{
   background-image: linear-gradient(black, black);
-  max-width: 800px;
+  margin: 3em 1em;
   &:before{
     display: block;
     font-size: 88px;
@@ -22,12 +21,10 @@ div{
     mix-blend-mode: lighten;
     background: #fbfbfb;
     line-height: 110px;
-
   }
 }
 div:first-of-type{
   --brushstrokes: 3825;
-  width: 450px;
   background-image: paint(demo1);
   &:before{
     // https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
@@ -37,35 +34,27 @@ div:first-of-type{
 }
 div:nth-of-type(2){
   --brushstrokes: 102;
-  width: 80%;
-  // background-image: linear-gradient(black, black);
   background-image: paint(demo2);
   &:before{
-    // display: block;
     font-family: 'Amarante', cursive;
-    // font-size: 88px;
-    // text-align: center;
-    content: "Art Nouveau";
-    // background: #fbfbfb;
-    // line-height: 110px;
-    // color: #000;
-    // mix-blend-mode: lighten;
+    content: "102 Colored Stripes";
   }
 }
 div:nth-of-type(3){
   --points: 85;
-  width: 84%;
-  // background-image: linear-gradient(black, black);
   background-image: paint(demo3);
   &:before{
-    // display: block;
     font-family: 'Limelight', cursive;
-    // font-size: 88px;
-    // text-align: center;
     content: attr(data-text);
-    // background: #fbfbfb;
-    // line-height: 110px;
-    // color: #000;
-    // mix-blend-mode: lighten;
+  }
+}
+@media screen and (max-width: 407px){
+  div:before{
+    font-size: 68px;
+  }
+}
+@media screen and (min-width: 450px){
+  div:first-of-type{
+    width: 450px;
   }
 }
