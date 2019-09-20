@@ -48,13 +48,12 @@ h2:last-of-type{
     font-size: 88px;
     line-height: 96px;
     max-width: 501px;
-    margin: .35em 0;
+    margin: .4em 0;
   }
   h2:first-of-type{
     width: 450px;
   }
   h2:nth-of-type(2){
-    max-width: initial;
     line-height: 102px;
   }
 }
@@ -64,6 +63,9 @@ h2:last-of-type{
   }
 }
 @media screen and (min-width: 942px){
+  h2{
+    margin: .5em 0;
+  }
   h2:last-of-type{
     max-width: initial;
   }
