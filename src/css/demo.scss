@@ -10,51 +10,61 @@ body{
   flex-direction: column;
   align-items: center;
 }
-div{
+h2{
   background-image: linear-gradient(black, black);
-  margin: 3em 1em;
-  &:before{
-    display: block;
-    font-size: 88px;
-    text-align: center;
-    color: #1e0a00;
-    mix-blend-mode: lighten;
-    background: #fbfbfb;
-    line-height: 110px;
-  }
+  color: transparent;
+  font-size: 68px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-align: center;
+  line-height: 76px;
+  font-weight: 500;
+  margin: .3em .25em;
 }
-div:first-of-type{
+h2:first-of-type{
   --brushstrokes: 3825;
   background-image: paint(demo1);
-  &:before{
-    // https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
-    font-family: 'Dr Sugiyama', cursive;
-    content: "Claude Monet";
-  }
+  font-family: 'Dr Sugiyama', cursive;
+  width: 60%;
 }
-div:nth-of-type(2){
-  --brushstrokes: 102;
+h2:nth-of-type(2){
+  --stripes: 102;
   background-image: paint(demo2);
-  &:before{
-    font-family: 'Amarante', cursive;
-    content: "102 Colored Stripes";
-  }
+  font-family: 'Amarante', cursive;
+  line-height: 78px;
 }
-div:nth-of-type(3){
-  --points: 85;
+h2:last-of-type{
+  --spheres: 85;
   background-image: paint(demo3);
-  &:before{
-    font-family: 'Limelight', cursive;
-    content: attr(data-text);
-  }
+  font-family: 'Limelight', cursive;
 }
-@media screen and (max-width: 407px){
-  div:before{
-    font-size: 68px;
-  }
-}
+
+ // https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
+
+
+
 @media screen and (min-width: 450px){
-  div:first-of-type{
+  h2{
+    font-size: 88px;
+    line-height: 96px;
+    max-width: 501px;
+    margin: .35em 0;
+  }
+  h2:first-of-type{
     width: 450px;
+  }
+  h2:nth-of-type(2){
+    max-width: initial;
+    line-height: 102px;
+  }
+}
+@media screen and (min-width: 775px){
+  h2:nth-of-type(2){
+    max-width: initial;
+  }
+}
+@media screen and (min-width: 942px){
+  h2:last-of-type{
+    max-width: initial;
   }
 }
