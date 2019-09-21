@@ -1,5 +1,5 @@
 class Demo2 {
-  static get inputProperties() { return ['--lines']; }
+  static get inputProperties() { return ['--stripes']; }
 
   static getRandomPoint(width, height) {
     return [
@@ -21,9 +21,12 @@ class Demo2 {
   }
 
   paint(ctx, { width, height }, props) { // eslint-disable-line
-    const lines = props.get('--lines');
+    const stripes = props.get('--stripes');
 
-    for (let i = 0; i < lines; i += 1) {
+    ctx.fillStyle = 'rgba(30, 30, 30, .6)';
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = 0; i < stripes; i += 1) {
       const start = Demo2.getRandomPoint(width, height);
       const end = Demo2.getRandomPoint(width, height);
       ctx.beginPath();
@@ -31,7 +34,7 @@ class Demo2 {
       ctx.lineTo(...end);
       ctx.lineWidth = Demo2.getWidth();
       ctx.lineCap = 'square';
-      ctx.strokeStyle = `rgba(${Demo2.getColor(36, 150)}, ${Demo2.getColor(108, 150)}, ${Demo2.getColor(12, 200)}, ${Demo2.getTransparency()})`;
+      ctx.strokeStyle = `rgba(${Demo2.getColor(16, 150)}, ${Demo2.getColor(18, 150)}, ${Demo2.getColor(12, 200)}, ${Demo2.getTransparency()})`;
       ctx.stroke();
     }
   }

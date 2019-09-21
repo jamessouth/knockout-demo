@@ -8,12 +8,12 @@ const ScriptExtHTMLWebpackPlugin = require('script-ext-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
-  // mode: 'production',
-  // devtool: 'source-map',
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: 'production',
+  devtool: 'source-map',
+  // mode: 'development',
+  // devtool: 'inline-source-map',
   entry: {
-    demo1: './src/js/index.js',
+    index: './src/js/index.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -73,7 +73,6 @@ module.exports = {
       '!demo1.min.js',
       '!demo2.min.js',
       '!demo3.min.js',
-      '!demo4.min.js',
     ] }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
