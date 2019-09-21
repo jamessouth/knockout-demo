@@ -11,7 +11,6 @@ body{
   align-items: center;
 }
 h2{
-  background-image: linear-gradient(black, black);
   color: transparent;
   font-size: 68px;
   background-clip: text;
@@ -23,19 +22,16 @@ h2{
 }
 h2:first-of-type{
   --brushstrokes: 3825;
-  background-image: paint(demo1);
   font-family: 'Dr Sugiyama', cursive;
   width: 60%;
 }
 h2:nth-of-type(2){
   --stripes: 102;
-  background-image: paint(demo2);
   font-family: 'Amarante', cursive;
   line-height: 78px;
 }
 h2:last-of-type{
   --spheres: 85;
-  background-image: paint(demo3);
   font-family: 'Limelight', cursive;
 }
 @media screen and (min-width: 450px){
