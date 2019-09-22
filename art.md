@@ -46,6 +46,7 @@ Here we just have three `<h2>` tags with our text, as you might see in a real do
 ##The Rest of the Styles
 
 ```scss
+//demo.scss
 *{
   margin: 0;
   padding: 0;
@@ -62,7 +63,7 @@ h2{
   color: transparent;
   font-size: 68px;
   background-clip: text;
-  -webkit-background-clip: text;// it is necessary to prefix
+  -webkit-background-clip: text;// must be prefixed
   text-align: center;
   line-height: 76px;
   font-weight: 500;
@@ -71,12 +72,13 @@ h2{
 h2:first-of-type{
   --brushstrokes: 3825;
   font-family: 'Dr Sugiyama', cursive;
-  width: 60%;
+  width: 60%;// reduces paint area when text takes 2 lines to maintain desired visual effect
+  //of few dark gaps
 }
 h2:nth-of-type(2){
   --stripes: 102;
   font-family: 'Amarante', cursive;
-  line-height: 78px;
+  line-height: 78px;// without this the descender of the 'p' gets cut off
 }
 h2:last-of-type{
   --spheres: 85;
@@ -86,19 +88,20 @@ h2:last-of-type{
   h2{
     font-size: 88px;
     line-height: 96px;
-    max-width: 501px;
+    max-width: 501px;// otherwise paint area would extend across viewport, requiring more
+//objects to be drawn in our worklet to get the desired effect
     margin: .4em 0;
   }
   h2:first-of-type{
-    width: 450px;
+    width: 450px;// otherwise the cross-stroke of the 't' gets cut off
   }
   h2:nth-of-type(2){
-    line-height: 102px;
+    line-height: 102px;// also used to preserve the descender of the 'p'
   }
 }
 @media screen and (min-width: 775px){
   h2:nth-of-type(2){
-    max-width: initial;
+    max-width: initial;// allows to expand as one line across viewport
   }
 }
 @media screen and (min-width: 942px){
@@ -106,11 +109,13 @@ h2:last-of-type{
     margin: .5em 0;
   }
   h2:last-of-type{
-    max-width: initial;
+    max-width: initial;// allows to expand as one line across viewport
   }
 }
 
 ```
 <figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/css/demo.scss">demo.scss</a></figcaption>
 
-Pretty simple styles, just some basic flexboxing on the body then your typical text styling for the `<h2>`s.  The background images we are drawing are of course only visible to the extent the text color is transparent.  The `background-clip` property must be prefixed in most browsers.  Each headline has a CSS custom property that we will use in their respective worklets.  One important thing to note here is the properties that affect the size of the content box.  
+Pretty simple styles, just some basic flexboxing on the body then some typical text styling for the `<h2>`s, each of which has a CSS custom property that we will use in their respective worklets.  What creates the knockout text is the transparent text color (the background will only be visible to the extent the text color is transparent) and the `background-clip: text` property (limits the appearance of the background image to the area of the text), which must be prefixed in most browsers.
+
+Properties like `line-height`, `width`, and `font-size` (and also `padding` and `border`) affect the dimensions that are used in the paint worklet to draw the background and the placement of the text over it.  What we want to achieve is complete coverage of the text with as little excess background as possible, since that is wasted paint work, while still maintaining our desired visual effect.  
