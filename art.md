@@ -1,6 +1,5 @@
 https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
 
-
 ---
 title: Generating Knockout Text with the CSS Paint (Houdini) API
 published: false
@@ -11,11 +10,11 @@ canonical_url:
 series: CSS Paint (Houdini) Series No. 2
 ---
 
-In my first article on the new CSS Paint (Houdini) API, I covered three use cases for Houdini along with using the polyfill and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here.
+In my first article on the new CSS Paint (Houdini) API, I covered three use cases for Houdini along with polyfilling non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here.
 
-Knockout text is a set of techniques where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that the text contrasts with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip` CSS property as it is (now) widely supported, simple, and accessible.  Check out my 15 Puzzle Generator to see another knockout technique using images, pseudo content and the `mix-blend-mode` CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are live here.
+Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip` CSS property as it is (now) widely supported, simple, and accessible.  Check out my 15 Puzzle Generator to see another knockout technique using images, pseudo content and the `mix-blend-mode` CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are live here.
 
-##The Simple Markup
+##The Markup
 
 ```html
   <!-- index.html -->
@@ -43,7 +42,7 @@ Knockout text is a set of techniques where the text content of an element is cut
 
 Here we just have three `<h2>` tags with our text, as you might see in a real document.  Throw on an `<h1>` for a page title and this is accessible to screen readers as a set of level 2 headings.  The `<style>` tag for calling our `paint` worklets is needed to work around an apparent caching issue as discussed in my previous article.  
 
-##The Rest of the Styles
+##The Styling
 
 ```scss
 //demo.scss
@@ -73,7 +72,7 @@ h2:first-of-type{
   --brushstrokes: 3825;
   font-family: 'Dr Sugiyama', cursive;
   width: 60%;// reduces paint area when text takes 2 lines to maintain desired visual effect
-  //of few dark gaps
+  //of just a few dark gaps in the 'hay'
 }
 h2:nth-of-type(2){
   --stripes: 102;
@@ -116,6 +115,39 @@ h2:last-of-type{
 ```
 <figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/css/demo.scss">demo.scss</a></figcaption>
 
-Pretty simple styles, just some basic flexboxing on the body then some typical text styling for the `<h2>`s, each of which has a CSS custom property that we will use in their respective worklets.  What creates the knockout text is the transparent text color (the background will only be visible to the extent the text color is transparent) and the `background-clip: text` property (limits the appearance of the background image to the area of the text), which must be prefixed in most browsers.
+Pretty simple styles, just some basic flexboxing on the body then some typical text styling for the `<h2>`s, each of which has a CSS custom property that we will use in their respective worklets.  What creates the knockout text effect is the transparent text color (the background will only be visible to the extent the text color is transparent) coupled with the `background-clip: text` property (limits the appearance of the background image to the area of the text), which must be prefixed in most browsers.
 
-Properties like `line-height`, `width`, and `font-size` (and also `padding` and `border`) affect the dimensions that are used in the paint worklet to draw the background and the placement of the text over it.  What we want to achieve is complete coverage of the text with as little excess background as possible, since that is wasted paint work, while still maintaining our desired visual effect.  
+Properties like `line-height`, `width`, and `font-size` (and also `padding` and `border`) affect the dimensions that are used in the paint worklet to draw the background, and also the placement of the text over it.  We want the following:
+
+1. A background big enough to completely cover the text...
+2. ...and no bigger.  
+
+Any text not covered by the background will just have the text color, including fully transparent, so the background should be large enough to fully contain the text you want to knockout.  On the other hand, if our background size far exceeds the area of the text, our worklet is doing a lot of work that is not being used to show the text, which is sub-optimal and could really be a problem if you animate the background.  By taking a few simple steps to minimize the background size while still containing the text, we can minimize our paint function's complexity and draw as much as possible in text areas that will be seen by the user.
+##Demo 1
+
+![Demo 1](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo1.png)
+
+Here I'm trying to recreate Monet's famous haystacks as seen, for example, in this painting.  By limiting the width of the background, I can keep the number of brushstrokes down to a reasonable 3,825.  If the background were wider, the brushstrokes would be diluted and more black would be visible, so more strokes would be required for the same look, increasing the complexity of the paint function.
+
+```javascript
+//(partial) demo1.js
+  paint(ctx, { width, height }, props) {
+    const brushstrokes = props.get('--brushstrokes');
+
+    ctx.fillStyle = 'rgb(30, 10, 0)';
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = 0; i < brushstrokes; i += 1) {
+      const [x, y] = Demo1.getRandomPoint(width, height);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Demo1.getXAdjustment(8), y + Demo1.getYAdjustment(28));
+      ctx.lineWidth = Demo1.getWidth();
+      ctx.strokeStyle = `rgba(${Demo1.getNumber(201, 40)}, ${Demo1.getNumber(148, 45)}, ${Demo1.getNumber(102, 45)}, ${Demo1.getNumber(70, 31) / 100})`;
+      ctx.stroke();
+    }
+  }
+```
+<figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo1.js">demo.scss</a></figcaption>
+
+Pretty simple, just looping through the number of brushstrokes from CSS and drawing a short line of 'hay' in a random straw color.
