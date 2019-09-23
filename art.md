@@ -1,5 +1,6 @@
 https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
 
+
 ---
 title: Generating Knockout Text with the CSS Paint (Houdini) API
 published: false
@@ -10,7 +11,7 @@ canonical_url:
 series: CSS Paint (Houdini) Series No. 2
 ---
 
-In my first article on the new CSS Paint (Houdini) API, I covered three use cases for Houdini along with polyfilling non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here.
+In my first article on the new CSS Paint (Houdini) API, I covered three use cases for Houdini along with polyfilling non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here.  The font seen in the cover image for this article is a Google font called [Spicy Rice](https://fonts.google.com/specimen/Spicy+Rice).
 
 Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip` CSS property as it is (now) widely supported, simple, and accessible.  Check out my 15 Puzzle Generator to see another knockout technique using images, pseudo content and the `mix-blend-mode` CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are live here.
 
@@ -127,10 +128,10 @@ Any text not covered by the background will just have the text color, including 
 
 ![Demo 1](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo1.png)
 
-Here I'm trying to recreate Monet's famous haystacks as seen, for example, in this painting.  By limiting the width of the background, I can keep the number of brushstrokes down to a reasonable 3,825.  If the background were wider, the brushstrokes would be diluted and more black would be visible, so more strokes would be required for the same look, increasing the complexity of the paint function.
+Here I'm trying to recreate Monet's famous haystacks as seen, for example, in this painting.  By limiting the width of the background, I can keep the number of brushstrokes down to a reasonable 3,825.  If the background were wider, the brushstrokes would be diluted and more black would be visible, so more strokes would be required for the same look, increasing the complexity of the paint function.  I chose the Dr Sugiyama Google font to vaguely mimic Monet's signature.
 
 ```javascript
-//(partial) demo1.js
+//(partial) demo1.js - static methods omitted, see link to file below
   paint(ctx, { width, height }, props) {
     const brushstrokes = props.get('--brushstrokes');
 
@@ -143,11 +144,86 @@ Here I'm trying to recreate Monet's famous haystacks as seen, for example, in th
       ctx.moveTo(x, y);
       ctx.lineTo(x + Demo1.getXAdjustment(8), y + Demo1.getYAdjustment(28));
       ctx.lineWidth = Demo1.getWidth();
-      ctx.strokeStyle = `rgba(${Demo1.getNumber(201, 40)}, ${Demo1.getNumber(148, 45)}, ${Demo1.getNumber(102, 45)}, ${Demo1.getNumber(70, 31) / 100})`;
+      ctx.strokeStyle = `rgba(
+        ${Demo1.getNumber(201, 40)},
+        ${Demo1.getNumber(148, 45)},
+        ${Demo1.getNumber(102, 45)},
+        ${Demo1.getNumber(70, 31) / 100}
+      )`;
       ctx.stroke();
     }
   }
 ```
-<figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo1.js">demo.scss</a></figcaption>
+<figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo1.js">demo1.js</a></figcaption>
 
 Pretty simple, just looping through the number of brushstrokes from CSS and drawing a short line of 'hay' in a random straw color.
+##Demo 2
+
+![Demo 2](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo2.png)
+
+This one is also just a bunch of colored lines, very simple to do yet attractive visually.  
+
+```javascript
+//(partial) demo2.js - static methods omitted, see link to file below
+  paint(ctx, { width, height }, props) {
+    const stripes = props.get('--stripes');
+
+    ctx.fillStyle = 'rgba(30, 30, 30, .6)';
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = 0; i < stripes; i += 1) {
+      const start = Demo2.getRandomPoint(width, height);
+      const end = Demo2.getRandomPoint(width, height);
+      ctx.beginPath();
+      ctx.moveTo(...start);
+      ctx.lineTo(...end);
+      ctx.lineWidth = Demo2.getWidth();
+      ctx.lineCap = 'square';
+      ctx.strokeStyle = `rgba(
+        ${Demo2.getColor(16, 150)},
+        ${Demo2.getColor(18, 150)},
+        ${Demo2.getColor(12, 200)},
+        ${Demo2.getTransparency()}
+      )`;
+      ctx.stroke();
+    }
+  }
+```
+<figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo2.js">demo2.js</a></figcaption>
+
+I chose the Amarante Google font because it is about the most Art Nouveau-style font they have.
+
+> **Tip:**  On Google fonts you can only search font names, but if you want to search for a certain *style* of font (or anything that appears in the font descriptions but not the names), search the GitHub repo!  
+##Demo 3
+
+![Demo 3](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo3.png)
+
+For Demo 3 I experimented with drawing spheres (adapted from here) and I think it turned out great.  Just a little more complex than stripes but nothing too heavy.
+
+```javascript
+//(partial) demo3.js - static methods omitted, see link to file below
+  paint(ctx, { width, height }, props) {
+    const spheres = props.get('--spheres');
+
+    ctx.fillStyle = 'rgb(10, 10, 10)';
+    ctx.fillRect(0, 0, width, height);
+
+    for (let i = 0; i < spheres; i += 1) {
+      const radius = Demo3.getColor(4, 60);
+      const [x, y] = Demo3.getRandomPoint(width + 1, height + 1);
+      const [r, g, b] = Demo3.makeColor();
+      const radgrad = ctx.createRadialGradient(x, y, 0, x + (radius / 4), y + (radius / 4), radius);
+      radgrad.addColorStop(0, '#ffffff');
+      radgrad.addColorStop(0.99, `rgba(${r}, ${g}, ${b}, 1)`);
+      radgrad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+      ctx.fillStyle = radgrad;
+      ctx.fillRect(0, 0, width, height);
+    }
+  }
+```
+<figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo3.js">demo3.js</a></figcaption>
+
+Radial gradients in canvas drawing take two circles as arguments and then color stops are added.  You can then apply the gradient as either a fill style or a stroke style.
+##Conclusion
+
+Knockout text is a cool effect that is easy to implement accessibly and when we use Houdini to make the backgrounds, we can randomly generate attractive patterns to show through our knocked-out text as an alternative to having to load images as the background.  This technique works with the Houdini polyfill and can be used anywhere; the only limit is your imagination!  I hope you found this article useful and that you will please like and share with the world!
