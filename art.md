@@ -11,9 +11,9 @@ canonical_url:
 series: CSS Paint (Houdini) Series No. 2
 ---
 
-In my [first article](https://dev.to/jamessouth/generating-shapes-and-images-with-the-css-paint-houdini-api-29c) on the new [CSS Paint (Houdini) API](https://developer.mozilla.org/en-US/docs/Web/Houdini), I covered three use cases for Houdini along with polyfilling non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here:{% github jamessouth/knockout-demo no-readme %}
+In my [first article](https://dev.to/jamessouth/generating-shapes-and-images-with-the-css-paint-houdini-api-29c) on the new [CSS Paint (Houdini) API](https://developer.mozilla.org/en-US/docs/Web/Houdini), I covered three use cases for Houdini along with polyfilling it in non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here:{% github jamessouth/knockout-demo no-readme %}
 
-Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip: text` CSS property as it is [widely supported](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip#Browser_compatibility)(prefixed), simple, and accessible.  Check out my [15 Puzzle Generator](https://jamessouth.github.io/fifteen-puzzle-generator/home) to see another knockout technique using images, pseudo content and the [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode) CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are [live here](https://jamessouth.github.io/knockout-demo/).
+Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip: text` CSS property as it is [widely supported](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip#Browser_compatibility) (prefixed), simple, and accessible.  Check out my [15 Puzzle Generator](https://jamessouth.github.io/fifteen-puzzle-generator/home) to see another knockout technique using images, pseudo content and the [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode) CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are [live here](https://jamessouth.github.io/knockout-demo/).
 
 ##The Markup
 
@@ -26,7 +26,7 @@ Knockout text is a visual effect where the text content of an element is cut out
   </body>
   <style>
     h2{
-      background-image: linear-gradient(black, black);// fallback
+      background-image: linear-gradient(black, black);
     }
     h2:first-of-type{
       background-image: paint(demo1);
@@ -101,7 +101,7 @@ h2:last-of-type{
 }
 @media screen and (min-width: 775px){
   h2:nth-of-type(2){
-    max-width: initial;// allows to expand as one line across viewport
+    max-width: initial;// allows to expand as one line
   }
 }
 @media screen and (min-width: 942px){
@@ -109,21 +109,21 @@ h2:last-of-type{
     margin: .5em 0;
   }
   h2:last-of-type{
-    max-width: initial;// allows to expand as one line across viewport
+    max-width: initial;// allows to expand as one line
   }
 }
 
 ```
 <figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/css/demo.scss">demo.scss</a></figcaption>
 
-Pretty simple styles, just some basic flexboxing on the body then some typical text styling for the `<h2>`s, each of which has a CSS custom property that we will use in their respective worklets.  What creates the knockout text effect is the transparent text color (the background will only be visible to the extent the text color is transparent) coupled with the `background-clip: text` property (limits the appearance of the background image to the area of the text), which must be prefixed in most browsers.
+Pretty simple styles, just some basic flexboxing on the body then some typical text styling for the `<h2>` tags, each of which has a CSS custom property that we will use in their respective worklets.  What creates the knockout text effect is the transparent text color (the background will only be visible to the extent the text color is transparent) coupled with the `background-clip: text` property (limits the appearance of the background image to the area of the text), which must be prefixed in most browsers.
 
 Properties like `line-height`, `width`, and `font-size` (and also `padding` and `border`) affect the dimensions that are used in the paint worklet to draw the background, and also the placement of the text over it.  We want the following:
 
 1. A background big enough to completely cover the text...
 2. ...and no bigger.  
 
-Any text not covered by the background will just have the text color, including fully transparent, so the background should be large enough to fully contain the text you want to knockout.  On the other hand, if our background size far exceeds the area of the text, our worklet is doing a lot of work that is not being used to show the text, which is sub-optimal and could really be a problem if you animate the background.  By taking a few simple steps to minimize the background size while still containing the text, we can minimize our paint function's complexity and draw as much as possible in text areas that will be seen by the user.
+Any text not covered by the background will just have the text color, including fully transparent, so the background should be large enough to fully contain the text you want to knockout.  On the other hand, if our background size far exceeds the area of the text, our worklet is doing a lot of work that is not being used to show the text, which is sub-optimal and could really be a problem if you animate the background.  By taking a few simple steps to minimize the background size while still containing the text, we can minimize our paint function's complexity and confine our drawing as much as possible to the text areas that will be seen by the user.  The simplicity of achieving such economic coverage for all viewport sizes is the major advantage of using Houdini to draw knockout text backgrounds versus using images:  the
 ##Demo 1
 
 ![Demo 1](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo1.png)
@@ -198,7 +198,7 @@ I chose the Amarante Google font because it is about the most Art Nouveau-style 
 
 ![Demo 3](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo3.png)
 
-For Demo 3 I experimented with drawing spheres (adapted from here) and I think it turned out great.  Just a little more complex than stripes but nothing too heavy.
+For Demo 3 I experimented with drawing spheres (adapted from here) and I think it turned out great.  Just a little more complex than stripes but nothing too heavy.  The font is Limelight, one of many Art Deco Google fonts.
 
 ```javascript
 //(partial) demo3.js - static methods omitted, see link to file below
