@@ -11,9 +11,9 @@ canonical_url:
 series: CSS Paint (Houdini) Series No. 2
 ---
 
-In my first article on the new CSS Paint (Houdini) API, I covered three use cases for Houdini along with polyfilling non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here.  The font seen in the cover image for this article is a Google font called [Spicy Rice](https://fonts.google.com/specimen/Spicy+Rice).
+In my [first article](https://dev.to/jamessouth/generating-shapes-and-images-with-the-css-paint-houdini-api-29c) on the new [CSS Paint (Houdini) API](https://developer.mozilla.org/en-US/docs/Web/Houdini), I covered three use cases for Houdini along with polyfilling non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with knockout text techniques to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here:{% github jamessouth/knockout-demo no-readme %}
 
-Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip` CSS property as it is (now) widely supported, simple, and accessible.  Check out my 15 Puzzle Generator to see another knockout technique using images, pseudo content and the `mix-blend-mode` CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are live here.
+Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; I went with using the `background-clip: text` CSS property as it is [widely supported](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip#Browser_compatibility)(prefixed), simple, and accessible.  Check out my [15 Puzzle Generator](https://jamessouth.github.io/fifteen-puzzle-generator/home) to see another knockout technique using images, pseudo content and the [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode) CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are [live here](https://jamessouth.github.io/knockout-demo/).
 
 ##The Markup
 
@@ -26,7 +26,7 @@ Knockout text is a visual effect where the text content of an element is cut out
   </body>
   <style>
     h2{
-      background-image: linear-gradient(black, black);
+      background-image: linear-gradient(black, black);// fallback
     }
     h2:first-of-type{
       background-image: paint(demo1);
@@ -60,7 +60,7 @@ body{
   align-items: center;
 }
 h2{
-  color: transparent;
+  color: transparent;// can be anything but background only visible to extent transparent
   font-size: 68px;
   background-clip: text;
   -webkit-background-clip: text;// must be prefixed
