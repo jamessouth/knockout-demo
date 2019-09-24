@@ -1,6 +1,3 @@
-https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html
-
-
 ---
 title: Generating Knockout Text with the CSS Paint (Houdini) API
 published: false
@@ -125,12 +122,12 @@ Properties like `line-height`, `width`, and `font-size` (and also `padding` and 
 
 Any text not covered by the background will just have the text color, including fully transparent, so the background should be large enough to completely contain the text you want to knockout.  On the other hand, if our background size far exceeds the area of the text, our worklet is doing a lot of work that is not being used to show the text, which is sub-optimal and could be a problem if you animate the background.  By making a few simple tweaks to these properties to minimize the background size while still containing the text, we can minimize our paint function's complexity and confine our drawing as much as possible to the text areas that will be seen by the user.
 
-The stylistic simplicity of such economic coverage of the text for all viewport sizes is the major advantage of using Houdini to draw knockout text backgrounds versus using images:  the drawn background automatically resizes as the text expands/contracts with the viewport, whereas images have fixed dimensions and different images must be loaded to accommodate various text shapes.  See again my [15 Puzzle Generator](https://github.com/jamessouth/fifteen-puzzle-generator/blob/master/src/app/home/header/header.component.scss) where I have six images available to load depending on the viewport size.  On to the demos!
+The stylistic simplicity of such economic coverage of the text for all viewport sizes is the major advantage of using Houdini to draw knockout text backgrounds versus using images:  the drawn background automatically resizes as the text expands/contracts with the viewport, whereas images have fixed dimensions and different images must be loaded to accommodate various text shapes.  See again my [15 Puzzle Generator](https://github.com/jamessouth/fifteen-puzzle-generator/blob/master/src/app/home/header/header.component.scss) where I have six images available to load depending on the viewport size.  Now, let's check out the worklets!
 ##Demo 1
 
 ![Demo 1](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo1.png)
 
-Here I'm trying to recreate Monet's famous haystacks as seen, for example, in this painting.  By limiting the width of the background, I can keep the number of brushstrokes down to a reasonable 3,825.  If the background were wider, the brushstrokes would be diluted and more black would be visible, so more strokes would be required for the same look, increasing the complexity of the paint function.  I chose the Dr Sugiyama Google font to vaguely mimic Monet's signature.
+Here I'm trying to recreate Claude Monet's famous haystacks as seen, for example, in [this painting](https://www.claudemonetgallery.org/Haystacks-Overcast-Day.html).  By limiting the width of the background, I can keep the number of brushstrokes down to a reasonable 3,825 😃.  If the background were wider, the brushstrokes would be diluted and more black would be visible, so more strokes would be required for the same look, increasing the complexity of the paint function.  I chose the Dr Sugiyama Google font to vaguely mimic Monet's signature.  To see the underlying background drawing, open up dev tools and uncheck `-webkit-background-clip: text`.
 
 ```javascript
 //(partial) demo1.js - static methods omitted, see link to file below
@@ -193,14 +190,15 @@ This one is also just a bunch of colored lines, very simple to do yet attractive
 ```
 <figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo2.js">demo2.js</a></figcaption>
 
-I chose the Amarante Google font because it is about the most Art Nouveau-style font they have.
+The font here is the Amarante Google font, about the most Art Nouveau-style font they have.
 
 > **Tip:**  On Google fonts you can only search font names, but if you want to search for a certain *style* of font (or anything that appears in the font descriptions but not the names), search the GitHub repo!  
+
 ##Demo 3
 
 ![Demo 3](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo3.png)
 
-For Demo 3 I experimented with drawing spheres (adapted from here) and I think it turned out great.  Just a little more complex than stripes but nothing too heavy.  The font is Limelight, one of many Art Deco Google fonts.
+For Demo 3, I experimented with drawing spheres (adapted from [the MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors#A_createRadialGradient_example)) and I think they turned out great.  Just a little more complex than stripes but nothing too heavy.  The font is Limelight, one of many Art Deco Google fonts.
 
 ```javascript
 //(partial) demo3.js - static methods omitted, see link to file below
@@ -214,7 +212,14 @@ For Demo 3 I experimented with drawing spheres (adapted from here) and I think i
       const radius = Demo3.getColor(4, 60);
       const [x, y] = Demo3.getRandomPoint(width + 1, height + 1);
       const [r, g, b] = Demo3.makeColor();
-      const radgrad = ctx.createRadialGradient(x, y, 0, x + (radius / 4), y + (radius / 4), radius);
+      const radgrad = ctx.createRadialGradient(
+                        x,
+                        y,
+                        0,
+                        x + (radius / 4),
+                        y + (radius / 4),
+                        radius
+      );
       radgrad.addColorStop(0, '#ffffff');
       radgrad.addColorStop(0.99, `rgba(${r}, ${g}, ${b}, 1)`);
       radgrad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
@@ -225,7 +230,7 @@ For Demo 3 I experimented with drawing spheres (adapted from here) and I think i
 ```
 <figcaption><a href="https://github.com/jamessouth/knockout-demo/blob/master/src/js/demo3.js">demo3.js</a></figcaption>
 
-Radial gradients in canvas drawing take two circles as arguments and then color stops are added.  You can then apply the gradient as either a fill style or a stroke style.
+Radial gradients in canvas drawing take two circles as arguments and then color stops can be added.  You can then apply the gradient as either a fill style or a stroke style.
 ##Conclusion
 
 Knockout text is a cool effect that is easy to implement accessibly and when we use Houdini to make the backgrounds, we can randomly generate attractive patterns to show through our knocked-out text as an alternative to having to load images as the background.  This technique works with the Houdini polyfill and can be used anywhere; the only limit is your imagination!  I hope you found this article useful and that you will please like and share with the world!
