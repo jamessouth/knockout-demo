@@ -1,14 +1,14 @@
 ---
 title: Generating Knockout Text with the CSS Paint (Houdini) API
-published: false
+published: true
 description: Using JS to draw knockout text backgrounds
 tags: CSS, JavaScript, Paint, Houdini
 cover_image: https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/title.png
-canonical_url:
+canonical_url: https://dev.to/jamessouth/generating-knockout-text-with-the-css-paint-houdini-api-2lac
 series: CSS Paint (Houdini) Series No. 2
 ---
 
-In my [first article](https://dev.to/jamessouth/generating-shapes-and-images-with-the-css-paint-houdini-api-29c) on the new [CSS Paint (Houdini) API](https://developer.mozilla.org/en-US/docs/Web/Houdini), I covered three use cases for Houdini along with polyfilling it in non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with a knockout text technique to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's demos, so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here:{% github jamessouth/knockout-demo no-readme %}
+In my [first article](https://dev.to/jamessouth/generating-shapes-and-images-with-the-css-paint-houdini-api-29c) on the new [CSS Paint (Houdini) API](https://developer.mozilla.org/en-US/docs/Web/Houdini), I covered three use cases for Houdini along with polyfilling it in non-supporting browsers and building with webpack.  Today I want to discuss combining Houdini with a knockout text technique to easily create attractive, generative text effects.  Since I have already covered the polyfill, I have chosen not to use it for this article's [demos](https://jamessouth.github.io/knockout-demo/), so they only work in Chrome; other browsers will just show a black fallback.  The repo for this article is here:{% github jamessouth/knockout-demo no-readme %}
 
 Knockout text is a visual effect where the text content of an element is cut out, revealing the background behind it, thereby giving color to the letters so that they contrast with the foreground and can be read.  In web development, there are several ways to achieve knockout text; for these demos I went with using the `background-clip: text` CSS property as it is [widely supported](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip#Browser_compatibility) (prefixed), simple, and accessible.  Check out my [15 Puzzle Generator](https://jamessouth.github.io/fifteen-puzzle-generator/home) to see another knockout text technique using images, pseudo content and the [`mix-blend-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode) CSS property, and the accessibility hack (a tiny, invisible `<h1>` tag) that was subsequently required.  The demos for this article are [live here](https://jamessouth.github.io/knockout-demo/).
 
@@ -115,9 +115,7 @@ h2:last-of-type{
 
 Pretty simple styles, just some basic flexboxing on the body then some typical text styling for the `<h2>` tags, each of which has a CSS custom property that we will use in their respective worklets.  The knockout text effect is created by the transparent text color (the background will only be visible to the extent the text color is transparent) coupled with the `background-clip: text` property (limits the appearance of the background image to the area of the text), which must be [prefixed in most browsers](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip#Browser_compatibility).
 
-We want the background to be just big enough to completely cover the text.  Any uncovered text will just be the text `color`, including fully transparent.  On the other hand, if our background size far exceeds the area of the text, our worklet will be doing a lot of unutilized work, which is sub-optimal and could be a problem if you animate the background.  Making a few simple tweaks to properties such as `line-height`, `width`, and `font-size` (and also `padding` and `border`) minimizes the background size while still containing the text, and thus minimizes our `paint` function's complexity and confines our drawing as much as possible to the text areas that will be seen by the user.
-
-The stylistic simplicity is the major advantage of using Houdini to draw knockout text backgrounds versus using images:  the drawn background automatically resizes with the text as it expands or contracts with the viewport, whereas images have fixed dimensions and different images must be loaded to accommodate various text shapes.  See the header styles from my [15 Puzzle Generator](https://github.com/jamessouth/fifteen-puzzle-generator/blob/master/src/app/home/header/header.component.scss) where I have six images available to load depending on the viewport size.  Now, let's check out the worklets!
+We want the background to be just big enough to completely cover the text.  Any uncovered text will just be the text `color`.  However, if our background size far exceeds the area of the text, our worklet will be doing a lot of unutilized work, which is sub-optimal and could be a problem if you animate the background.  Making a few simple tweaks to properties such as `line-height`, `width`, and `font-size` (and also `padding` and `border`) minimizes the background size and our `paint` function's complexity while still containing the text.  Now, let's check out the worklets!
 ##Demo 1
 
 ![Demo 1](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo1.png)
@@ -193,7 +191,7 @@ The font here is the Amarante Google font, about the most Art Nouveau-style font
 
 ![Demo 3](https://raw.githubusercontent.com/jamessouth/knockout-demo/master/images/demo3.png)
 
-For Demo 3, I experimented with drawing spheres (adapted from [the MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors#A_createRadialGradient_example)) and I think they turned out great.  Just a little more complex than stripes but nothing too heavy.  The font is Limelight, one of many Art Deco Google fonts.
+For Demo 3, I experimented with drawing spheres (adapted from [the MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors#A_createRadialGradient_example)) and I think they turned out great.  Just a little more complex than stripes but nothing too heavy.  The font is Limelight, one of many Art Deco-style Google fonts.
 
 ```javascript
 //(partial) demo3.js - static methods omitted, see link to file below
@@ -228,4 +226,4 @@ For Demo 3, I experimented with drawing spheres (adapted from [the MDN](https://
 Radial gradients in canvas drawing take two circles as arguments and then color stops can be added.  You can then apply the gradient as either a fill style or a stroke style.
 ##Conclusion
 
-Knockout text is a cool effect that is easy to implement accessibly and when we use Houdini to make the backgrounds, we can randomly generate attractive, automatically-adjusting patterns to show through our knocked-out text as an alternative to having to load images as the background.  This technique works with the Houdini polyfill and can be used anywhere; the only limit is your imagination!  I hope you found this article useful and that you will please like and share with the world!
+Knockout text is a cool effect that is easy to implement accessibly, and when we use Houdini to make the backgrounds, we can randomly generate attractive patterns to show through our knocked-out text as an alternative to having to load images.  This technique works with the Houdini polyfill and can be used anywhere; the only limit is your imagination!  I hope that you found this article useful and that you will please like and share with the world!
